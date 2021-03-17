@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {FC, useState} from 'react';
+import {Screen} from './components/Display/Display';
+import {KeyPad} from './components/KeyPad/KeyPad';
+
 import './App.css';
 
-function App() {
+export const App: FC = () => {
+  // const [result, setResult] = useState<number>(0)
+  const [display, setDisplay] = useState<string>('0')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="app">
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          My calculator
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Screen value={display}/>
+        <KeyPad/>
     </div>
   );
 }
