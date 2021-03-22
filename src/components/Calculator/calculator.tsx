@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import {Card, makeStyles, Theme} from '@material-ui/core';
-import {Screen} from '../Display/Screen';
+import {Screen} from '../Screen/Screen';
 import {KeyPad} from '../KeyPad/KeyPad';
 import {Operator} from '../../common/types';
 import {ButtonProps} from '../Button/Button';
@@ -10,21 +10,21 @@ const useCalculatorStyles = makeStyles<Theme> (() => ({
         maxWidth: '340px',
         padding: '5px',
         backgroundColor: '#272626',
-    }
-  }));
+    },
+}));
 
 export const Calculator: FC = () => {
     const classes = useCalculatorStyles();
-    const [pendingOperator, setPendingOperator] = useState<Operator>();
-    const [numValue, setNumValue] = useState<boolean>(true);
+    const [enteredOperator, setEnteredOperator] = useState<Operator>();
+    const [isNumValue, setIsNumValue] = useState<boolean>(true);
     const [result, setResult] = useState<number>(0);
     const [display, setDisplay] = useState<string>('0');
     const [memory, setMemory] = useState<number>(0);
 
-    const calculation = (currentValue: number, pendingOperator: Operator): boolean => {
+    const calculation = (currentValue: number, enteredOperator: Operator): boolean => {
         let data = result;
 
-        switch (pendingOperator) {
+        switch (enteredOperator) {
             case '+': 
                 data += currentValue;
                 break;
@@ -40,6 +40,7 @@ export const Calculator: FC = () => {
                 }
                 data /= currentValue;
         }
+
         setResult(data);
         setDisplay(data.toString().toString().slice(0, 10));
         return true;
@@ -51,9 +52,9 @@ export const Calculator: FC = () => {
             return;
         }
 
-        if (numValue) {
+        if (isNumValue) {
             data = '';
-            setNumValue(false);
+            setIsNumValue(false);
         }
 
         if (display !== '0') {
@@ -67,93 +68,95 @@ export const Calculator: FC = () => {
 
     const operatorClick = (operator: Operator) => {
         const data = Number(display);
-        if (typeof pendingOperator !== 'undefined' && !numValue) {
-            if (!calculation(data, pendingOperator)) {
-                return
+        if (typeof enteredOperator !== 'undefined' && !isNumValue) {
+            if (!calculation(data, enteredOperator)) {
+                return;
             }
-        }
-        else {
+        } else {
             setResult(data);
         }
+
         if (operator !== '%') {
-            setPendingOperator(operator);
-            setNumValue(true);
+            setEnteredOperator(operator);
+            setIsNumValue(true);
         }
     };
 
     const pointClick = () => {
         let data = display;
-        if (numValue) {
+        if (isNumValue) {
             data = '0';
         }
 
         if (data.indexOf('.') === -1) {
             data = data + '.';
         }
+
         setDisplay(data);
-        setNumValue(false);
+        setIsNumValue(false);
     };
 
     const changeSignClick = () => {
         const value = Number(display);
 
-        if (value > 0) {
-            setDisplay('-' + display);
-        } else if (value < 0) {
-            setDisplay(display.slice(1));
-            }
+        if (value === 0) {
+            return;
+        }
+
+        setDisplay(value > 0 ? '-' + display : display.slice(1));
     };
 
     const percentCall = () => {
         let currentValue = Number(display);
-        if(!result || numValue){
+        if (!result || isNumValue) {
             currentValue = currentValue / 100;
+        } else {
+            currentValue = result / 100 * currentValue;
         }
-        else currentValue = result / 100 * currentValue;
         setDisplay(currentValue.toString());
     };
 
     const equalClick = () => {
         const data = Number(display);
 
-        if (typeof pendingOperator !== 'undefined' && !numValue) {
-            if (!calculation(data, pendingOperator)) {
+        if (typeof enteredOperator !== 'undefined' && !isNumValue) {
+            if (!calculation(data, enteredOperator)) {
                 return;
+            } else {
+                setEnteredOperator(undefined);
             }
-            else setPendingOperator(undefined);
-        }
-        else {
+        } else {
             setDisplay(data.toString());
         }
         
-        setNumValue(true);
+        setIsNumValue(true);
     };
 
     const allClearClick = () => {
         setResult(0);
-        setPendingOperator(undefined);
+        setEnteredOperator(undefined);
         setDisplay('0');
-        setNumValue(true);
+        setIsNumValue(true);
     };
 
     const memoryClear = () => {
         setMemory(0);
-        setNumValue(true);
+        setIsNumValue(true);
     };
 
     const memoryRecall = () => {
         setDisplay(memory.toString());
-        setNumValue(false);
+        setIsNumValue(false);
     };
 
     const memoryAdd = () => {
         setMemory(memory + Number(display));
-        setNumValue(true);
+        setIsNumValue(true);
     };
 
     const memorySubtract  = () => {
         setMemory(memory - Number(display));
-        setNumValue(true);
+        setIsNumValue(true);
     };
 
     const buttonsConfig: ButtonProps[] = [
@@ -283,6 +286,4 @@ export const Calculator: FC = () => {
           />
       </Card>
     );
-  }
-  
-  export default Calculator;
+};

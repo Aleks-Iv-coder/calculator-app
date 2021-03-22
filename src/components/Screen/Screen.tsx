@@ -5,7 +5,7 @@ interface DisplayProps {
     value: string,
 };
 
-const screenStyles = makeStyles<Theme> (({spacing}) => ({
+const useSreenStyles = makeStyles<Theme> (() => ({
     root: {
         minHeight: '100px',
         display: 'flex',
@@ -15,15 +15,16 @@ const screenStyles = makeStyles<Theme> (({spacing}) => ({
         color: '#ffffff',
         overflow: 'hidden',
     },
-  }));
+}));
 
 export const Screen: FC<DisplayProps> = ({value}) => {
-    const classes = screenStyles();
+    const classes = useSreenStyles();
+
     return (
         <div className={classes.root}>
-            <Typography variant="h2">
+            <Typography variant='h2'>
                 {value}
             </Typography>
         </div>
-    )
+    );
 };

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {makeStyles, Theme} from '@material-ui/core';
-import Calculator from './components/Calculator/calculator';
+import {Calculator} from './components/Calculator/Calculator';
 
-const appStyles = makeStyles<Theme> (({spacing}) => ({
+const useAppStyles = makeStyles<Theme> (() => ({
   root: {
     textAlign: 'center',
     backgroundColor: '#aec5f3',
@@ -16,8 +16,9 @@ const appStyles = makeStyles<Theme> (({spacing}) => ({
   },
 }));
 
-export const App = () => {
-  const classes = appStyles();
+export const App: FC = () => {
+  const classes = useAppStyles();
+
   return (
     <div className={classes.root}>
       <p>
@@ -26,6 +27,4 @@ export const App = () => {
       <Calculator/>
     </div>
   );
-}
-
-export default App;
+};

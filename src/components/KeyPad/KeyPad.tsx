@@ -13,11 +13,11 @@ const useKeyPadStyles = makeStyles<Theme> (({spacing}) => ({
         padding: '5px',
         backgroundColor: '#272626',
     },
-  }));
+}));
 
-  interface KeyPadProps {
-      buttonsConfig: ButtonProps[];
-  };
+interface KeyPadProps {
+    buttonsConfig: ButtonProps[];
+}
 
 export const KeyPad: FC<KeyPadProps> = ({buttonsConfig}) => {
     const classes = useKeyPadStyles();
