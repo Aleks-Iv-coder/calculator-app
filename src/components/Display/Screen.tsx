@@ -2,10 +2,10 @@ import React, {FC} from 'react';
 import {makeStyles, Typography, Theme} from '@material-ui/core';
 
 interface DisplayProps {
-    value: string
-}
+    value: string,
+};
 
-const useScreenStyles = makeStyles<Theme> (({spacing}) => ({
+const screenStyles = makeStyles<Theme> (({spacing}) => ({
     root: {
         minHeight: '100px',
         display: 'flex',
@@ -18,7 +18,7 @@ const useScreenStyles = makeStyles<Theme> (({spacing}) => ({
   }));
 
 export const Screen: FC<DisplayProps> = ({value}) => {
-    const classes = useScreenStyles();
+    const classes = screenStyles();
     return (
         <div className={classes.root}>
             <Typography variant="h2">

@@ -43,7 +43,7 @@ export const Calculator: FC = () => {
         setResult(data);
         setDisplay(data.toString().toString().slice(0, 10));
         return true;
-    }
+    };
 
         const numberClick = (num: string) => {
         let data = display;
@@ -63,7 +63,7 @@ export const Calculator: FC = () => {
             data = num;
         }
         setDisplay(data);
-    }
+    };
 
     const operatorClick = (operator: Operator) => {
         const data = Number(display);
@@ -79,7 +79,7 @@ export const Calculator: FC = () => {
             setPendingOperator(operator);
             setNumValue(true);
         }
-    }
+    };
 
     const pointClick = () => {
         let data = display;
@@ -92,7 +92,7 @@ export const Calculator: FC = () => {
         }
         setDisplay(data);
         setNumValue(false);
-    }
+    };
 
     const changeSignClick = () => {
         const value = Number(display);
@@ -102,7 +102,7 @@ export const Calculator: FC = () => {
         } else if (value < 0) {
             setDisplay(display.slice(1));
             }
-    }
+    };
 
     const percentCall = () => {
         let currentValue = Number(display);
@@ -139,23 +139,22 @@ export const Calculator: FC = () => {
     const memoryClear = () => {
         setMemory(0);
         setNumValue(true);
-    }
+    };
 
     const memoryRecall = () => {
         setDisplay(memory.toString());
         setNumValue(false);
-    }
+    };
 
     const memoryAdd = () => {
         setMemory(memory + Number(display));
         setNumValue(true);
-
-    }
+    };
 
     const memorySubtract  = () => {
         setMemory(memory - Number(display));
         setNumValue(true);
-    }
+    };
 
     const buttonsConfig: ButtonProps[] = [
         {
