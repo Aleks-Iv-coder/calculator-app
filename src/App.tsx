@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {makeStyles, Theme} from '@material-ui/core';
-import {Calculator} from './components/Calculator/Calculator';
+import {Calculator} from './components/Calculator/calculator';
 
 const useAppStyles = makeStyles<Theme> (() => ({
   root: {
