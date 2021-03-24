@@ -7,7 +7,7 @@ import {ButtonProps} from '../Button/Button';
 
 const useCalculatorStyles = makeStyles<Theme> (() => ({
     root: {
-        maxWidth: '340px',
+        maxWidth: '330px',
         padding: '5px',
         backgroundColor: '#272626',
     },
@@ -47,9 +47,9 @@ export const Calculator: FC = () => {
         return true;
     };
 
-        const numberClick = (num: string) => {
+    const numberClick = (num: string) => {
         let data = display;
-        if ((display === '0' && num === '0') || display.length > 10) {
+        if ((display === '0' && num === '0') || (display.length > 8 && typeof enteredOperator === 'undefined')) {
             return;
         }
 
