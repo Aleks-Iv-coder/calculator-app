@@ -27,6 +27,7 @@ export const Calculator: FC = () => {
         switch (enteredOperator) {
             case '+': 
                 data += currentValue;
+                data = Math.round(data * 10)/10;
                 break;
             case '-': 
                 data -= currentValue;
